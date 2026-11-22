@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Congo Air Services - Présences</title>
+<style>
+body{font-family: Arial; margin:0; background:#f2f2f2; text-align:center;}
+header{background:#0B2F5B; color:white; padding:20px;}
+header h1{margin:0;}
+.commandant{background:#0B2F5B; color:#E8B84B; width:80%; margin:20px auto; padding:20px; border-radius:10px; border:3px solid #E8B84B;}
+.commandant h2{margin:0; font-size:30px;}
+.carte{background:white; width:80%; margin:20px auto; padding:20px; border-radius:10px; box-shadow:0 0 10px grey;}
+button{background:#FFCC00; border:none; padding:12px 20px; font-weight:bold; border-radius:5px; cursor:pointer; font-size:16px;}
+input{padding:10px; width:60%; border-radius:5px; border:1px solid grey;}
+ul{list-style:none; padding:0;}
+li{background:#eef6ff; margin:5px; padding:10px; border-radius:5px;}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>✈️ CONGO AIR SERVICES</h1>
+    <p>Transport Aérien • Sécurité • Régulation</p>
+</header>
+
+<div class="commandant">
+    <p>COMMANDANT DE L'ANAC</p>
+    <h2>OUKAMA BERTRAND VITAL</h2>
+    <p style="color:white;">Commandant • Expert en Sécurité Aérienne</p>
+</div>
+
+<div class="carte">
+   
+    <p>Scanne ce code ou clique sur le bouton pour être présent :</p>
+   
+    <input type="text" id="nom" placeholder="Écris ton nom et prénom...">
+    <br><br>
+    <button onclick="marquer()">✅ Je suis présent</button>
+    <p id="message"></p>
+</div>
+
+<div class="carte">
+    <h2>📋 Liste des présences du jour : <span id="total">0</span></h2>
+    <ul id="liste"></ul>
+    <button onclick="effacer()">Effacer la liste</button>
+</div>
+
+<script>
+let presences = [];
+
+function marquer(){
+    let nom = document.getElementById("nom").value;
+    if(nom == ""){
+        alert("Écris ton nom d'abord !");
+        return;
+    }
+    let heure = new Date().toLocaleTimeString();
+    presences.push(nom + " - " + heure);
+    afficher();
+    document.getElementById("message").innerHTML = "Merci " + nom + ", ta présence est enregistrée à " + heure;
+    document.getElementById("nom").value = "";
+}
+
+function afficher(){
+    let liste = document.getElementById("liste");
+    liste.innerHTML = "";
+    presences.forEach(function(p){
+        liste.innerHTML += "<li>✅ " + p + "</li>";
+    });
+    document.getElementById("total").innerHTML = presences.length;
+}
+
+function effacer(){
+    presences = [];
+    afficher();
+}
+</script>
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://congo-air.netlify.app">
+
+
+</body>
+</html>
